@@ -2,7 +2,8 @@
 
 import { auth } from "@/auth";
 import { SignInButton } from "./components/sign-in-button";
-import Image from "next/image";
+import Link from "next/link";
+import { SignOutButton } from "./components/sign-out-button";
 
 export default async function Home() {
   const session = await auth();
@@ -10,18 +11,8 @@ export default async function Home() {
   if (session?.user) {
     return (
       <div>
-        <h1>NextAuth v5 + Next 15</h1>
-        <p>User signed in with name: {session.user.name}</p>
-        <p>User signed in with email: {session.user.email}</p>
-        {session.user.image && (
-          <Image
-            src={session.user.image!}
-            alt={session.user.name ?? "Avatar"}
-            width={48}
-            height={48}
-            style={{ borderRadius: "50%" }}
-          />
-        )}
+        <Link href={"/user-info"}> User Info </Link>
+        <SignOutButton />
       </div>
     );
   }
